@@ -1,14 +1,14 @@
 import React, { SyntheticEvent, useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { Tab, Grid, Header, Card, Image, TabProps } from "semantic-ui-react";
+import { Tab, Grid, Header, Card, Image, TabProps, List } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { UserActivity } from "../../app/models/profile";
 import { format } from "date-fns";
 import { useStore } from "../../app/stores/store";
 
 const panes = [
-  { menuItem: "Do zrobienia", pane: { key: "future" } },
-  { menuItem: "Wykonane", pane: { key: "past" } },
+  { menuItem: "Do zrobienia", pane: { key: "todo" } },
+  { menuItem: "Wykonane", pane: { key: "done" } },
   { menuItem: "Założone", pane: { key: "hosting" } },
 ];
 
@@ -38,27 +38,23 @@ export default observer(function ProfileActivities() {
             onTabChange={(e, data) => handleTabChange(e, data)}
           />
           <br />
-          <Card.Group itemsPerRow={4}>
+          <List animated relaxed = 'very'>
             {userActivities.map((activity: UserActivity) => (
-              <Card
-                as={Link}
-                to={`/activities/${activity.id}`}
-                key={activity.id}
-              >
-                <Image
-                  src={`/assets/categoryImages/${activity.category}.jpg`}
-                  style={{ minHeight: 100, objectFit: "cover" }}
-                />
-                <Card.Content>
-                  <Card.Header textAlign="center">{activity.title}</Card.Header>
-                  <Card.Meta textAlign="center"> 
+              <List.Item as={Link}
+              to={`/activities/${activity.id}`}
+              key={activity.id}>
+              
+              
+                <List.Content>
+                  <List.Header textAlign="center">{activity.title}</List.Header>
+                  <List.Description textAlign="center"> 
                     <div>{format(new Date(activity.date), "dd MMM yyyy")}</div>
                     
-                  </Card.Meta>
-                </Card.Content>
-              </Card>
+                  </List.Description>
+                </List.Content>
+              </List.Item>
             ))}
-          </Card.Group>
+          </List>
         </Grid.Column>
       </Grid>
     </Tab.Pane>

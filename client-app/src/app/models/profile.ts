@@ -10,6 +10,7 @@ export interface Profile {
     following: boolean;
     isResponsible?: boolean;
     photos?: Photo[];
+    tasksResponsibledCount: number;
 }
 
 export class Profile implements Profile {

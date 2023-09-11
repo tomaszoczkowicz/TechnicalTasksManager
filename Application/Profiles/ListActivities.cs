@@ -40,7 +40,8 @@ namespace Application.Profiles
                 .AsQueryable();
                 query = request.Predicate switch
                 {
-                    "past" => query.Where(a => a.Date <= DateTime.Now),
+                    "todo" => query.Where(a => a.IsUserResponsible),
+                    "done" => query.Where(a => a.Status.Contains("wykonany")),
                     "hosting" => query.Where(a => a.HostUsername ==
                     request.Username),
                     _ => query.Where(a => a.Date >= DateTime.Now)

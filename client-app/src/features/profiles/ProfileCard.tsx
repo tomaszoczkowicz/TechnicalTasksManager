@@ -13,7 +13,7 @@ interface Props {
 
 export default observer(function ProfileCard({profile}: Props){
     const { activityStore } = useStore();
-    const { sumOfUserActivitiesHosted, sumOfUserActivitiesAttended } = activityStore;
+    const { sumOfUserActivitiesHosted} = activityStore;
 
     function truncate(str: string | undefined) {
         if (str) {
@@ -41,7 +41,7 @@ export default observer(function ProfileCard({profile}: Props){
                 <Grid.Column>
                     <Icon name='hourglass half' />
                     w toku:  &nbsp;
-                    {sumOfUserActivitiesAttended(profile.username)}
+                    {profile.tasksResponsibledCount}
                 </Grid.Column>
                 </Grid.Row>
                 <Grid.Row columns = {1}>

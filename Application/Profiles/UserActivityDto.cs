@@ -15,5 +15,9 @@ namespace Application.Profiles
         
         [JsonIgnore]
         public string HostUsername { get; set; }
+        [JsonIgnore]
+        public bool IsUserResponsible { get; set; }
+        [JsonIgnore]
+        public string Status { get; set; }
     }
 }

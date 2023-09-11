@@ -21,7 +21,7 @@ namespace Application.Activities
 
                 public class CommandValidator : AbstractValidator<Command>
         {
-            public CommandValidator()
+        public CommandValidator()
             {
                 RuleFor(x => x.Activity).SetValidator(new ActivityValidator());
             }

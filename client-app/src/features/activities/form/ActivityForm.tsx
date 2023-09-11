@@ -16,13 +16,17 @@ import MyDateInput from "../../../app/common/form/MyDateInput";
 import { priorityOptions } from "../../../app/common/options/priorityOptions";
 import { statusOptions } from "../../../app/common/options/statusOptions";
 
+
 export default observer ( function ActivityForm() {
 
     const {activityStore} = useStore();
     const{createActivity, updateActivity, 
-        loading, loadActivity, loadingInitial, endDateVisible} = activityStore;
+        loading, loadActivity, loadingInitial} = activityStore;
     const {id} = useParams();
     const navigate = useNavigate();
+
+
+    
 
     const [activity, setActivity] = useState<ActivityFormValues>(new ActivityFormValues());
 
@@ -37,6 +41,7 @@ export default observer ( function ActivityForm() {
 
     useEffect(() => {
         if(id) loadActivity(id).then(activity => setActivity(new ActivityFormValues(activity)))
+        
     }, [id, loadActivity]);
 
     function handleFormSubmit(activity: ActivityFormValues){
@@ -53,8 +58,11 @@ export default observer ( function ActivityForm() {
 
     }
 
+    
 
     if(loadingInitial) return <LoadingComponent content='Wczytywanie...'/>
+    
+
     return (
         <Segment clearing>
             <Header content='Szczegóły zadania' sub color='teal'/>
@@ -77,15 +85,15 @@ export default observer ( function ActivityForm() {
                 
                 <Header content='Status zadania' sub color='teal'/>
                 <MySelectInput placeholder='Priorytet'  name='priority' options={priorityOptions}/>
-                <MySelectInput placeholder='Status'  name='status' options={statusOptions}/>
-                {endDateVisible &&
+                <MySelectInput placeholder='Status'  name='status' options={statusOptions} />
+                
                     <MyDateInput
                     placeholderText='Date'  
                     name='endDate' 
                     timeCaption='time'
                     dateFormat='MMMM d, yyyy h:mm aa'
-                    />      
-                }
+                    />    
+                
                 <Button 
                     disabled = {isSubmitting || !dirty || !isValid}
                     loading ={isSubmitting} floated='right' 

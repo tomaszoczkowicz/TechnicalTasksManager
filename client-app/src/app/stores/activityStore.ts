@@ -16,7 +16,7 @@ export default class ActivityStore {
     loading = false;
     loadingInitial = false;
     loadingResponsibility = false;
-    endDateVisible = true;
+    endDateVisibility = false;
     pagination: Pagination | null = null;
     pagingParams = new PagingParams();
     predicate = new Map().set('all', true);
@@ -105,18 +105,6 @@ export default class ActivityStore {
         })
         return sumOfActivities;
     }
-
-    sumOfUserActivitiesAttended = (userId : string) => {
-        const activities = Array.from(this.activityRegistry.values())
-        let sumOfActivities =0;
-        activities.forEach(activity => {
-           activity.attendees.forEach(attendee => {
-            if(attendee.username === userId) sumOfActivities++;
-           })
-        })
-        return sumOfActivities;
-    }
-
 
 
     loadActivities = async () => {
@@ -235,7 +223,7 @@ deleteActivity = async (id: string) => {
             })
     }
 }
-//TODO updateResponsibility
+
 updateResponsibility = async () => {
     const user = store.userStore.user;
     this.loadingResponsibility = true;
@@ -310,4 +298,5 @@ updateAttendeeFollowing = (username: string) => {
         })
     })
 }
+
 }

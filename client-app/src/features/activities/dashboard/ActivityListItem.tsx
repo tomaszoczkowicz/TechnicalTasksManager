@@ -10,7 +10,13 @@ interface Props {
 }
 
 export default function ActivityListItem({activity}: Props){
+    
+        function truncate(str: string | undefined, length: number) {
+        if (str) {
+        return str.length > length ? str.substring(0, length) + '...' : str;
+        }
 
+        }
             return(
                     <Segment.Group>
                         <Segment>
@@ -22,7 +28,7 @@ export default function ActivityListItem({activity}: Props){
                                     <Item.Image style = {{marginBottom: 5}} size='tiny' circular src={activity.host?.image || '/assets/user.png'}/>
                                     <Item.Content>
                                         <Item.Header as={Link} to={`/activities/${activity.id}`}>
-                                            {activity.title}
+                                            {truncate(activity.title, 117)}
                                         </Item.Header>
                                         <Item.Description>Autor: <Link to={`/profiles/${activity.hostUsername}`}>{activity.host?.displayName}</Link></Item.Description>
                                         {activity.isHost && (
@@ -75,9 +81,6 @@ export default function ActivityListItem({activity}: Props){
                         </Segment>
                         <Segment secondary>
                             <ActivityListItemAttendee attendees={activity.attendees!}/>
-                        </Segment>
-                        <Segment clearing>
-                            <span>{activity.description}</span>
                             <Button 
                             as={Link} 
                             to={`/activities/${activity.id}`}
@@ -85,6 +88,10 @@ export default function ActivityListItem({activity}: Props){
                             floated='right'
                             content='Zobacz'
                             />
+                        </Segment>
+                        <Segment clearing>
+                            <span>{truncate(activity.description, 460)}</span>
+                            
                         </Segment>
                     </Segment.Group>
             )

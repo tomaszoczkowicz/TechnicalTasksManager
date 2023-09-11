@@ -10,22 +10,22 @@ using Persistence;
 
 namespace Infrastructure.Security
 {
-    public class IsHostRequirement : IAuthorizationRequirement
+    public class IsHostOrResponsibleRequirement : IAuthorizationRequirement
     {
         
     }
-    public class IsHostRequirementHandler : AuthorizationHandler<IsHostRequirement>
+    public class IsHostOrResponsibleRequirementHandler : AuthorizationHandler<IsHostOrResponsibleRequirement>
     {
         private readonly DataContext _dbContext;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public IsHostRequirementHandler(DataContext dbContext, IHttpContextAccessor httpContextAccessor)
+        public IsHostOrResponsibleRequirementHandler(DataContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = dbContext;
             _httpContextAccessor = httpContextAccessor;
         }
 
-        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, IsHostRequirement requirement)
+        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, IsHostOrResponsibleRequirement requirement)
         {
             var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
             if(userId == null) return Task.CompletedTask;
@@ -33,7 +33,7 @@ namespace Infrastructure.Security
             .SingleOrDefault(x => x.Key =="id").Value?.ToString());
             var attendee = _dbContext.ActivityAttendees.AsNoTracking().SingleOrDefaultAsync(x => x.AppUserId == userId && x.ActivityId == activityId).Result;
             if(attendee == null) return Task.CompletedTask;
-            if(attendee.IsHost) context.Succeed(requirement);
+            if(attendee.IsHost || attendee.IsResponsible) context.Succeed(requirement);
             return Task.CompletedTask;
         }
     }

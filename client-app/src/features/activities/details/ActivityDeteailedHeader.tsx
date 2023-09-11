@@ -75,6 +75,9 @@ export default observer (function ActivityDetailedHeader({activity}: Props) {
                     onClick={updateResponsibility}
                     loading={loadingResponsibility}
                     />
+                    {activity.isResponsible && <Button as={Link} disabled={activity.isCancelled} to={`/manage/${activity.id}`} color='orange' floated='right'> 
+                    Edytuj zadanie
+                    </Button>}
                     </>
                 ) : (
                     <Button disabled={activity.isCancelled} 

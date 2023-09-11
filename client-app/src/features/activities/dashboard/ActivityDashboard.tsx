@@ -28,7 +28,7 @@ export default observer( function ActivitiyDashboard(){
      
     return (
         <Grid>
-            <Grid.Column width='10'>
+            <Grid.Column width='11'>
                 {activityStore.loadingInitial && activityRegistry.size === 0 && !loadingNext ? (
                     <>
                         <ActivityListItemPlaceholder/>
@@ -46,10 +46,10 @@ export default observer( function ActivitiyDashboard(){
                 )}
                     
             </Grid.Column>
-            <Grid.Column width='6'>
+            <Grid.Column width='5'>
                 <ActivityFilters/>
             </Grid.Column>
-            <Grid.Column width='10'>
+            <Grid.Column width='11'>
                 <Loader active={loadingNext}/>
             </Grid.Column>
         </Grid>

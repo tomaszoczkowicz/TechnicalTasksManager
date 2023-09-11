@@ -53,12 +53,12 @@ namespace API.Extensions
             
             services.AddAuthorization(opt =>
             {
-                opt.AddPolicy("IsActivityHost", policy =>
+                opt.AddPolicy("IsActivityHostOrResponsible", policy =>
                 {
-                    policy.Requirements.Add(new IsHostRequirement());
+                    policy.Requirements.Add(new IsHostOrResponsibleRequirement());
                 });
             });
-            services.AddTransient<IAuthorizationHandler, IsHostRequirementHandler>();
+            services.AddTransient<IAuthorizationHandler, IsHostOrResponsibleRequirementHandler>();
             services.AddScoped<TokenService>();
             return services;
         }

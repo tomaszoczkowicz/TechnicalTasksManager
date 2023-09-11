@@ -28,7 +28,7 @@ export default observer(function ActivityFilters(){
             onClick={() => setPredicate('isHost', 'true')}
             />
             <Menu.Item>
-                <ActivityFiltersSearch/>
+                <ActivityFiltersSearch />
             </Menu.Item>
         </Menu>
         <Header/>

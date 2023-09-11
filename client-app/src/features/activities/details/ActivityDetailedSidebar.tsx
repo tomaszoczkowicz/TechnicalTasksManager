@@ -70,6 +70,34 @@ export default observer(function ActivityDetailedSidebar ({activity: {attendees,
                     ))}
                 </List>
             </Segment>
+            <Segment
+                textAlign='center'
+                style={{ border: 'none' }}
+                attached='top'
+                secondary
+                inverted
+                color='teal'
+            >
+                Załączone zdjęcia
+            </Segment>
+            <Segment attached>
+                <List relaxed divided>
+                    {attendees
+                    .map(attendee => (
+                        <Item style={{ position: 'relative' }} key={attendee.username}>
+
+                        <Image size='tiny' src={attendee.image || '/assets/user.png'} />
+                        <Item.Content verticalAlign='middle'>
+                            <Item.Header as='h3' color='teal'>
+                                Opis zdjęcia
+                            </Item.Header>
+      
+                            
+                        </Item.Content>
+                    </Item>
+                    ))}
+                </List>
+            </Segment>
         </>
 
     )
