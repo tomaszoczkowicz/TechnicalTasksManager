@@ -1,6 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { User, UserFormValues } from "../models/user";
+import { ChangePasswordFormValues, User, UserFormValues } from "../models/user";
 import agent from "../api/agent";
+import { toast } from 'react-toastify';
 import { store } from "./store";
 import { router } from "../router/Routes";
 
@@ -37,6 +38,27 @@ export default class UserStore {
             throw error;
         }
     } 
+    changePassword = async (creds: ChangePasswordFormValues) => {
+        if(creds.newPassword != creds.newPasswordCheck)
+        {
+            toast.warn('Nowe hasła różnią się!')
+        }
+        else{
+            try {
+                creds.username=this.user?.username;
+                const user = await agent.Account.changePassword(creds);
+                store.commonStore.setToken(user.token);
+                runInAction(() => this.user = user);
+                router.navigate(`/Profiles/${user.username}`);
+                store.modalStore.closeModal();
+                toast.success('Zmieniono hasło')
+            } catch (error) {
+                toast.warn('Nieprawidłowe hasło')
+                throw error;               
+            }
+        } 
+        
+    }
     setImage = (image: string) => {
         if(this.user) this.user.image = image;
     }

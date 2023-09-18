@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react'
-import {Button, Header, Item, Segment, Image, Label} from 'semantic-ui-react'
+import {Button, Header, Item, Segment, Image, Label, Popup} from 'semantic-ui-react'
 import {Activity} from "../../../app/models/activity";
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
@@ -25,6 +25,12 @@ interface Props {
 
 export default observer (function ActivityDetailedHeader({activity}: Props) {
     const {activityStore: {updateAttendance,updateResponsibility, cancelActivityToggle, loading, loadingResponsibility}} = useStore();
+    function truncate(str: string | undefined, length: number) {
+        if (str) {
+        return str.length > length ? str.substring(0, length) + '...' : str;
+        }
+
+        }
     return (
         <Segment.Group>
             <Segment basic attached='top' style={{padding: '0'}}>
@@ -36,11 +42,22 @@ export default observer (function ActivityDetailedHeader({activity}: Props) {
                     <Item.Group>
                         <Item>
                             <Item.Content>
+                            <Popup wide="very"
+                             hoverable
+                             trigger={
                                 <Header
-                                    size='huge'
-                                    content={activity.title}
+                                    size='large'
+                                    content={truncate(activity.title,100)}
                                     style={{color: 'white'}}
+                                    floated='left'
                                 />
+                            }   
+                            >
+                            <Popup.Content>
+                                {activity.title}
+                            </Popup.Content>
+            
+                            </Popup>
                                 <p>{`Priorytet: ${activity.priority}`}</p>
                                 <p>
                                     Założone przez <strong><Link to={`/profiles/${activity.host?.username}`}>{activity.host?.displayName}</Link></strong>

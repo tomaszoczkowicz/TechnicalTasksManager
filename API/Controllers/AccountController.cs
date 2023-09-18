@@ -62,7 +62,6 @@ namespace API.Controllers
             };
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);
-
             if (result.Succeeded)
             {
                 return CreateUserObject(user);
@@ -70,6 +69,20 @@ namespace API.Controllers
             return BadRequest(result.Errors);
         }
 
+        
+        [HttpPost("changePassword")]
+        public async Task<ActionResult<UserDto>> ChangePassword(ChangePasswordDto changePasswordDto)
+        {
+
+            var user = await _userManager.Users.Include(p => p.Photos).FirstOrDefaultAsync(x => x.UserName == changePasswordDto.UserName);
+            var result = await _userManager.ChangePasswordAsync(user, changePasswordDto.OldPassword, changePasswordDto.NewPassword);
+            
+            if (result.Succeeded)
+            {
+                return CreateUserObject(user);
+            }
+            return BadRequest(result.Errors);
+        }
 
         [Authorize]
         [HttpGet]

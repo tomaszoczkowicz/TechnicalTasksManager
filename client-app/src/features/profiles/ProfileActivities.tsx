@@ -1,6 +1,6 @@
 import React, { SyntheticEvent, useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { Tab, Grid, Header, Card, Image, TabProps, List } from "semantic-ui-react";
+import { Tab, Grid, Header, Card, Image, TabProps } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { UserActivity } from "../../app/models/profile";
 import { format } from "date-fns";
@@ -16,7 +16,8 @@ export default observer(function ProfileActivities() {
   const { profileStore } = useStore();
   const { loadUserActivities, profile, loadingActivities, userActivities } = profileStore;
   useEffect(() => {
-    loadUserActivities(profile!.username);
+    loadUserActivities(profile!.username,panes[0 as number].pane.key);
+    
   }, [loadUserActivities, profile]);
 
   const handleTabChange = (e: SyntheticEvent, data: TabProps) => {
@@ -25,6 +26,13 @@ export default observer(function ProfileActivities() {
       panes[data.activeIndex as number].pane.key
     );
   };
+
+  function truncate(str: string | undefined, length: number) {
+    if (str) {
+    return str.length > length ? str.substring(0, length) + '...' : str;
+    }
+
+    };
   return (
     <Tab.Pane loading={loadingActivities}>
       <Grid>
@@ -38,23 +46,26 @@ export default observer(function ProfileActivities() {
             onTabChange={(e, data) => handleTabChange(e, data)}
           />
           <br />
-          <List animated relaxed = 'very'>
+          <Card.Group itemsPerRow={1}>
             {userActivities.map((activity: UserActivity) => (
-              <List.Item as={Link}
-              to={`/activities/${activity.id}`}
-              key={activity.id}>
-              
-              
-                <List.Content>
-                  <List.Header textAlign="center">{activity.title}</List.Header>
-                  <List.Description textAlign="center"> 
+              <Card
+                as={Link}
+                to={`/activities/${activity.id}`}
+                key={activity.id}
+              >
+
+                <Card.Content>
+                  <Card.Header textAlign="left">{truncate(activity.title,117)}</Card.Header>
+                  <Card.Description textAlign="left"> 
                     <div>{format(new Date(activity.date), "dd MMM yyyy")}</div>
-                    
-                  </List.Description>
-                </List.Content>
-              </List.Item>
+                  </Card.Description>
+                  <Card.Meta>
+                    {activity.category}
+                  </Card.Meta>
+                </Card.Content>
+              </Card>
             ))}
-          </List>
+          </Card.Group>
         </Grid.Column>
       </Grid>
     </Tab.Pane>

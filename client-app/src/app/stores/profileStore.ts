@@ -2,6 +2,7 @@ import { makeAutoObservable, reaction, runInAction } from "mobx";
 import { Photo, Profile, UserActivity } from "../models/profile";
 import agent from "../api/agent";
 import { store } from "./store";
+import { toast } from "react-toastify";
 
 export default class ProfileStore {
     profile: Profile | null = null;
@@ -123,7 +124,9 @@ export default class ProfileStore {
                 }
                 this.profile = { ...this.profile, ...(profile as Profile) };
                 this.loading = false;
+                
             });
+            toast.success('Zaktualizowano dane!');
         } catch (error) {
             console.log(error);
             runInAction(() => (this.loading = false));

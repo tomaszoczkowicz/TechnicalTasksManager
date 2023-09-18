@@ -7,6 +7,7 @@ import pl from 'date-fns/locale/pl';
 import { store } from "./store";
 import { Profile } from "../models/profile";
 import { Pagination, PagingParams } from "../models/pagination";
+import { toast,ToastContainer } from "react-toastify";
 
 
 export default class ActivityStore {
@@ -63,7 +64,7 @@ export default class ActivityStore {
                 break;
             case 'search':
                 this.predicate.delete('search');
-                this.predicate.set('search', value);
+                this.predicate.set('search', value);    
                 break;
         }
     }
@@ -116,6 +117,7 @@ export default class ActivityStore {
                   })
             this.setPagination(result.pagination);
             this.setLoadingInitial(false);
+            
         } catch (error) {
             console.log(error);
                 this.setLoadingInitial(false);

@@ -8,6 +8,8 @@ import { Formik , Form } from 'formik';
 import * as Yup from 'yup';
 import MyTextInput from '../../app/common/form/MyTextInput';
 import MyTextArea from '../../app/common/form/MyTextArea';
+import LoginForm from '../users/LoginForm';
+import ChangePasswordForm from '../users/ChangePasswordForm';
 
 interface Props{
     profile: Profile;
@@ -16,7 +18,8 @@ interface Props{
 export default observer(function ProfileAbout({profile} : Props) {
     const {profileStore: {isCurrentUser, updateProfile}} = useStore();
     const [editBioMode, setEditBioMode] = useState(false);
-
+    const [editPasswordMode, setEditPasswordMode] = useState(false);
+    const {modalStore} = useStore();
     const validationSchema = Yup.object({
         displayName: Yup.string().required('The displayName title is required'),
         bio: Yup.string().required('The bio is required'),
@@ -55,11 +58,15 @@ export default observer(function ProfileAbout({profile} : Props) {
                             <Button 
                                 disabled = {isSubmitting || !dirty || !isValid}
                                 loading ={isSubmitting} floated='right' 
-                                positive type='submit' content='Zapisz' />
+                                positive type='submit' content='Zapisz' />  
+                                               
                         </Form>
                             )}
                         </Formik>
-                        
+                        <Button floated='right' basic 
+                        content={editPasswordMode ? 'Anuluj' : 'Zmiana hasła'}
+                        onClick={() => modalStore.openModal(<ChangePasswordForm/>)}
+                        />
                     </Segment>
                     ) : (
                         <>

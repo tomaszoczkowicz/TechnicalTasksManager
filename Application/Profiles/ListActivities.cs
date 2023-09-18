@@ -35,13 +35,13 @@ namespace Application.Profiles
             {
                 var query = _context.ActivityAttendees
                 .Where(u => u.AppUser.UserName == request.Username)
-                .OrderBy(a => a.Activity.Date)
+                .OrderByDescending(a => a.Activity.Date)
                 .ProjectTo<UserActivityDto>(_mapper.ConfigurationProvider)
                 .AsQueryable();
                 query = request.Predicate switch
                 {
-                    "todo" => query.Where(a => a.IsUserResponsible),
-                    "done" => query.Where(a => a.Status.Contains("wykonany")),
+                    "todo" => query.Where(a => a.IsUserResponsible && !a.Status.Contains("wykonany")),
+                    "done" => query.Where(a => a.IsUserResponsible && a.Status.Contains("wykonany")),
                     "hosting" => query.Where(a => a.HostUsername ==
                     request.Username),
                     _ => query.Where(a => a.Date >= DateTime.Now)

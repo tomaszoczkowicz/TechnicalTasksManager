@@ -11,9 +11,9 @@ namespace Persistence
             {
                 var users = new List<AppUser>
                 {
-                    new AppUser{DisplayName = "Tomek", UserName = "Oczkowicz", Email = "toczkowicz@oknoplus.com.pl"},
-                    new AppUser{DisplayName = "Krzysiek", UserName = "Sieja", Email = "ksieja@oknoplus.com.pl"},
-                    new AppUser{DisplayName = "Piotr", UserName = "Szatan", Email = "testpszatan@oknoplus.com.pl"}
+                    new AppUser{DisplayName = "Tomek", UserName = "Oczkowicz", Email = "test1@oknoplus.com.pl"},
+                    new AppUser{DisplayName = "Krzysiek", UserName = "Siejski", Email = "test2@oknoplus.com.pl"},
+                    new AppUser{DisplayName = "Piotr", UserName = "Szatan", Email = "test3@oknoplus.com.pl"}
                 };
 
                 foreach (var user in users)
@@ -74,7 +74,7 @@ namespace Persistence
                     Title = "Zmiana słupka w drzwiach z doświetlem z 3015 na 3010 - kwestie produkcyjne",
                     Date = DateTime.UtcNow.AddMonths(3),
                     EndDate = new DateTime(),
-                    Description = "Jakieś pierdololo",
+                    Description = "LOREM IPSUM",
                     Category = "produkcja",
                     Priority = "Duży",
                     Status = "Przydzielono",

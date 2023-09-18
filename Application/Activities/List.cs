@@ -52,8 +52,10 @@ namespace Application.Activities
                 if(request.Params.Search != null)
                 {
                     var phrase = request.Params.Search;
-                    query = query.Where(x => x.Title.Contains(phrase)
-                                          || x.Description.Contains(phrase));
+                    query = query.Where(x => x.Title.ToLower().Contains(phrase.ToLower())
+                                          || x.Description.ToLower().Contains(phrase.ToLower())
+                                          || x.Attendees.Any(a => a.DisplayName.ToLower()
+                                                                               .Contains(phrase.ToLower()) && x.HostUsername == a.Username));
                 }
                 
                 return Result<PagedList<ActivityDto>>.Success(

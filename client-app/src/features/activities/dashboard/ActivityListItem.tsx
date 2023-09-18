@@ -23,12 +23,16 @@ export default function ActivityListItem({activity}: Props){
                             {activity.isCancelled &&
                                 <Label attached='top' color='red' content='Anulowane' style={{textAlign: 'center'}}/>
                             }
+                            
                             <Item.Group>
                                 <Item>
+                                {activity.status ==='wykonany' &&
+                                <Label corner='left' color='green' icon='check'/>
+                                }
                                     <Item.Image style = {{marginBottom: 5}} size='tiny' circular src={activity.host?.image || '/assets/user.png'}/>
                                     <Item.Content>
                                         <Item.Header as={Link} to={`/activities/${activity.id}`}>
-                                            {truncate(activity.title, 117)}
+                                            {truncate(activity.title, 137)}
                                         </Item.Header>
                                         <Item.Description>Autor: <Link to={`/profiles/${activity.hostUsername}`}>{activity.host?.displayName}</Link></Item.Description>
                                         {activity.isHost && (
@@ -52,11 +56,11 @@ export default function ActivityListItem({activity}: Props){
 
                             </Item.Group>
                         </Segment>
-                        <Segment>
-                            
+                        <Segment secondary>
+                        
                             <Grid>
                                 <Grid.Column width={4}>
-                                <Icon name='clock' />{format(activity.date!, 'dd MMM yyyy h:mm',{locale: pl})}
+                                <Icon name='clock' />{format(activity.date!, 'dd MMM yyyy',{locale: pl})}
 
                                 </Grid.Column>
                                 
