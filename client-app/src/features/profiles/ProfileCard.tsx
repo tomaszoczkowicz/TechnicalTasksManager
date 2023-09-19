@@ -1,7 +1,6 @@
-import React from 'react';
 import { Profile } from '../../app/models/profile';
 import { observer } from 'mobx-react-lite';
-import { Card, Divider, Grid, Icon, Image, Segment, } from 'semantic-ui-react';
+import { Card, Grid, Icon, Image, } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { useStore } from '../../app/stores/store';
 import FollowButton from './FollowButton';

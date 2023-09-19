@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react'
-import {Segment, Grid, Icon, GridColumn} from 'semantic-ui-react'
+import {Segment, Grid, Icon} from 'semantic-ui-react'
 import {Activity} from "../../../app/models/activity";
 import { format } from 'date-fns';
 import pl from 'date-fns/locale/pl';

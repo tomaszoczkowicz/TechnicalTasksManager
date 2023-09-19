@@ -1,14 +1,14 @@
-import { Card, Image, Header,Tab, Grid, Button, Segment } from 'semantic-ui-react';
-import { Photo, Profile } from '../../app/models/profile';
+import { Header,Tab, Grid, Button, Segment } from 'semantic-ui-react';
+import { Profile } from '../../app/models/profile';
 import { observer } from 'mobx-react-lite';
-import React, { SyntheticEvent, useState } from 'react';
+import {  useState } from 'react';
 import { useStore } from '../../app/stores/store';
-import PhotoUploadWidget from '../../app/common/imageUpload/PhotoUploadWidget';
+
 import { Formik , Form } from 'formik';
 import * as Yup from 'yup';
 import MyTextInput from '../../app/common/form/MyTextInput';
 import MyTextArea from '../../app/common/form/MyTextArea';
-import LoginForm from '../users/LoginForm';
+
 import ChangePasswordForm from '../users/ChangePasswordForm';
 
 interface Props{
@@ -18,7 +18,7 @@ interface Props{
 export default observer(function ProfileAbout({profile} : Props) {
     const {profileStore: {isCurrentUser, updateProfile}} = useStore();
     const [editBioMode, setEditBioMode] = useState(false);
-    const [editPasswordMode, setEditPasswordMode] = useState(false);
+    const [editPasswordMode] = useState(false);
     const {modalStore} = useStore();
     const validationSchema = Yup.object({
         displayName: Yup.string().required('The displayName title is required'),

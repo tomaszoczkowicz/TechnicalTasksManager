@@ -1,10 +1,10 @@
-import { Button, Divider, Grid, Header, Item, Reveal, Segment, Statistic, StatisticGroup } from 'semantic-ui-react';
+import { Divider, Grid, Header, Item, Segment, Statistic } from 'semantic-ui-react';
 import { Profile } from '../../app/models/profile';
 import { observer } from 'mobx-react-lite';
 import FollowButton from './FollowButton';
 
 interface Props{
-    profile: Profile;
+    profile: Profile; 
 }
 
 export default observer(function ProfileHeader({profile}: Props) {

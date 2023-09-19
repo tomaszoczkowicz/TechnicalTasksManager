@@ -1,7 +1,6 @@
 import { useField } from 'formik';
-import React from 'react';
 import { Form, Label, Select } from 'semantic-ui-react';
-import { useStore } from '../../stores/store';
+
 
 
 interface Props {
@@ -23,7 +22,7 @@ export default function MySelectInput(props: Props) {
                 clearable
                 options={props.options}
                 value={field.value || null}
-                onChange={(e,d)=> {
+                onChange={(_e,d)=> {
                     helpers.setValue(d.value)
                 }}
                 onBlur={() => helpers.setTouched(true)}

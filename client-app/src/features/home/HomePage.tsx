@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Container, Header, Segment, Image, Button, Icon} from "semantic-ui-react";
+import { Container, Header, Segment, Button, Icon} from "semantic-ui-react";
 import { useStore } from "../../app/stores/store";
 import { observer } from "mobx-react-lite";
 import LoginForm from "../users/LoginForm";

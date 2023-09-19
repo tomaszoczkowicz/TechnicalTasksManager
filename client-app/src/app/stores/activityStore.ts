@@ -1,13 +1,12 @@
 import { makeAutoObservable, reaction, runInAction } from "mobx";
 import { Activity, ActivityFormValues } from "../models/activity";
 import agent from "../api/agent";
-import {v4 as uuid} from 'uuid';
 import { format } from "date-fns";
 import pl from 'date-fns/locale/pl';
 import { store } from "./store";
 import { Profile } from "../models/profile";
 import { Pagination, PagingParams } from "../models/pagination";
-import { toast,ToastContainer } from "react-toastify";
+
 
 
 export default class ActivityStore {
@@ -40,7 +39,7 @@ export default class ActivityStore {
     
     setPredicate = (predicate: string, value: string | Date) => {
         const resetPredicate =() => {
-            this.predicate.forEach((value, key) => {
+            this.predicate.forEach((key) => {
                 if (key !== 'startDate') this.predicate.delete(key);
                 if (key !== 'search') this.predicate.delete(key);
             })

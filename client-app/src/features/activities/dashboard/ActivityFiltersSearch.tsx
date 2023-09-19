@@ -1,18 +1,15 @@
 import { observer } from 'mobx-react-lite'
-import React, { useEffect } from 'react'
-import {Segment, Header, Comment, Button, Loader} from 'semantic-ui-react'
+import {Header} from 'semantic-ui-react'
 import { useStore } from '../../../app/stores/store';
-import { Link } from 'react-router-dom';
+
 import { Formik, Form, Field, FieldProps } from 'formik';
-import * as Yup from 'yup';
-import { formatDistanceToNow } from 'date-fns';
-import { pl } from 'date-fns/locale';
+
 
 
 
 
 export default observer(function ActivityFiltersSearch() {
-    const {activityStore: {predicate, setPredicate}} = useStore();
+    const {activityStore: { setPredicate}} = useStore();
     
     return (
         <>
