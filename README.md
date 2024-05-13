@@ -13,9 +13,9 @@ Frondend is made using the React and Semantic UI libraries.
 
 The system supports user registration, logging in, creating and editing tasks, as well as participating in and observing them.
 
-* [Welcome Page](ttmscreen1.PNG)
-* [Login screen](ttmcscreen2.PNG)
-* [Main window](ttmscreen3.PNG)
+* [Welcome Page](ttmscreen1.png)
+* [Login screen](ttmcscreen2.png)
+* [Main window](ttmscreen3.png)
 
 ## Technologies
 
